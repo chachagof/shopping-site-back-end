@@ -1,11 +1,11 @@
-const buyerServices = require('../services/buyerServices')
+const buyerService = require('../services/buyerService')
 
 const buyerControllers = {
   buyerSignin: (req, res, next) => {
-    buyerServices.buyerSignin(req, (err, data) => err ? next(err) : res.json(data))
+    buyerService.buyerSignin(req, (err, data) => err ? next(err) : res.json(data))
   },
   buyerSignup: (req, res, next) => {
-    buyerServices.buyerSignup(req, (err, data) => err ? next(err) : res.json(data))
+    buyerService.buyerSignup(req, (err, data) => err ? next(err) : res.json(data))
   }
 }
 

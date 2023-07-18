@@ -1,7 +1,7 @@
 const passport = require('passport')
 const passportJWT = require('passport-jwt')
 
-const { Buyer } = require('../models')
+const { Buyer, Seller } = require('../models')
 
 const JWTStrategy = passportJWT.Strategy
 const ExtractJWT = passportJWT.ExtractJwt
@@ -12,9 +12,16 @@ const jwtOptions = {
 }
 
 passport.use(new JWTStrategy(jwtOptions, (jwtPayload, cb) => {
-  Buyer.findByPk(jwtPayload.id)
-    .then(user => cb(null, user))
-    .catch(err => cb(err))
+  if (jwtPayload.role === 'buyer') {
+    Buyer.findByPk(jwtPayload.id)
+      .then(user => cb(null, user))
+      .catch(err => cb(err))
+  }
+  if (jwtPayload.role === 'seller') {
+    Seller.findByPk(jwtPayload.id)
+      .then(user => cb(null, user))
+      .catch(err => cb(err))
+  }
 }))
 
 module.exports = passport

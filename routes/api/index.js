@@ -10,6 +10,7 @@ router.post('/buyer/signup', buyerController.buyerSignup)
 router.post('/seller/signup',sellerController.sellerSignup)
 // signin
 router.post('/buyer/signin', buyerController.buyerSignin)
+router.post('/seller/signin',sellerController.sellerSignin)
 
 
 module.exports = router

@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs')
 
 const { Buyer } = require('../models')
 
-const buyerServices = {
+const buyerService = {
   buyerSignin: (req, cb) => {
     const { account, password } = req.body
     if (!account || !password) throw new Error('請輸入帳號密碼')
@@ -13,7 +13,7 @@ const buyerServices = {
         return bcrypt.compare(password, buyer.password)
           .then(res => {
             if (!res) throw new Error('帳號或密碼輸入錯誤！')
-            const payload = { id: buyer.id }
+            const payload = { id: buyer.id, role: buyer.role }
             const token = jwt.sign(payload, process.env.JWT_SECRET)
             const buyerData = buyer.toJSON()
             delete buyerData.password
@@ -48,11 +48,11 @@ const buyerServices = {
       .then(() => {
         cb(null, {
           status: 200,
-          message: '註冊成功'
+          message: '買家註冊成功'
         })
       })
       .catch(err => cb(err))
   }
 }
 
-module.exports = buyerServices
+module.exports = buyerService

@@ -22,7 +22,7 @@ module.exports = {
       },
       role: {
         type: Sequelize.STRING,
-        defaultValue: 'buyer'
+        defaultValue: 'seller'
       },
       avatar: {
         type: Sequelize.STRING
