@@ -1,4 +1,5 @@
-const { Commodity } = require('../models')
+const { Commodity, Seller } = require('../models')
+const { Op } = require('sequelize')
 
 const commodityService = {
   // create
@@ -49,7 +50,12 @@ const commodityService = {
   },
   // read all
   getCommodities: (req, cb) => {
+    const condition = {}
+    if (req.query.category) {
+      condition.categoryId = +req.query.category
+    }
     Commodity.findAll({
+      where: condition,
       raw: true
     })
       .then(commodities => {
