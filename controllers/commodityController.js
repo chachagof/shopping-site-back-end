@@ -16,6 +16,10 @@ const commodityController = {
   // read all
   getCommodities: (req, res, next) => {
     commodityService.getCommodities(req, (err, data) => { err ? next(err) : res.json(data) })
+  },
+  // read one
+  getCommodity: (req, res, next) => {
+    commodityService.getCommodity(req, (err, data) => { err ? next(err) : res.json(data) })
   }
 }
 

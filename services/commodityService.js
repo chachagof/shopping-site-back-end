@@ -82,10 +82,20 @@ const commodityService = {
         where: condition,
         raw: true
       })
-      return cb(null, commodities)
+      return cb(null, { status: 200, data: commodities })
     } catch (err) {
       return cb(err)
     }
+  },
+  // read one
+  getCommodity: (req, cb) => {
+    const { commodityId } = req.params
+    Commodity.findByPk(commodityId)
+      .then(commodity => {
+        if (!commodity) throw new Error('查無此商品')
+        return cb(null, { status: 200, data: commodity.toJSON() })
+      })
+      .catch(err => cb(err))
   }
 }
 
