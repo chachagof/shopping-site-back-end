@@ -12,6 +12,10 @@ const commodityController = {
   // delete
   deleteCommodity: (req, res, next) => {
     commodityService.deleteCommodity(req, (err, data) => { err ? next(err) : res.json(data) })
+  },
+  // read all
+  getCommodities: (req, res, next) => {
+    commodityService.getCommodities(req, (err, data) => { err ? next(err) : res.json(data) })
   }
 }
 

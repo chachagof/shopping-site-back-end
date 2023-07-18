@@ -22,5 +22,7 @@ router.post('/commodity/:sellerId', authenticated, authenticatedSeller, commodit
 router.put('/commodity/:commodityId', authenticated, authenticatedSeller, commodityController.editCommodity)
 // delete
 router.delete('/commodity/:commodityId', authenticated, authenticatedSeller, commodityController.deleteCommodity)
+// read
+router.get('/commodities',commodityController.getCommodities)
 
 module.exports = router

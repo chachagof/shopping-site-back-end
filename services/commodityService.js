@@ -46,6 +46,16 @@ const commodityService = {
       })
       .then(() => cb(null, { status: 200, message: '商品刪除成功' }))
       .catch(err => cb(err))
+  },
+  // read all
+  getCommodities: (req, cb) => {
+    Commodity.findAll({
+      raw: true
+    })
+      .then(commodities => {
+        return cb(null, commodities)
+      })
+      .catch(err => cb(err))
   }
 }
 
