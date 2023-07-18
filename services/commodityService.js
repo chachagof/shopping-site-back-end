@@ -1,6 +1,7 @@
 const { Commodity } = require('../models')
 
 const commodityService = {
+  // create
   createCommodity: (req, cb) => {
     const { name, price, inventory, description } = req.body
     const sellerId = req.params.sellerId
@@ -13,7 +14,23 @@ const commodityService = {
       sellerId,
       categoryId: 1// example
     })
-      .then(() => cb(null, { status: 200, say: '商品建立成功' }))
+      .then(() => cb(null, { status: 200, message: '商品建立成功' }))
+      .catch(err => cb(err))
+  },
+  // edit
+  editCommodity: (req, cb) => {
+    const { name, price, inventory, description } = req.body
+    const { commodityId } = req.params
+    if (!name || !price || !inventory) throw new Error('所有欄位都是必填的')
+    Commodity.findByPk(commodityId)
+      .then(commodity => commodity.update({
+        name,
+        price,
+        inventory,
+        description,
+        categoryId: 1// example
+      }))
+      .then(() => cb(null, { status: 200, message: '商品修改成功' }))
       .catch(err => cb(err))
   }
 }
