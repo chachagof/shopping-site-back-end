@@ -49,21 +49,34 @@ const commodityService = {
       .catch(err => cb(err))
   },
   // read all
-  getCommodities: (req, cb) => {
-    const condition = {}
-    if (req.query.category) {
-      condition.categoryId = +req.query.category
-    } else if (req.query.name) {
-      condition.name = { [Op.startsWith]: req.query.name }
-    }
-    Commodity.findAll({
-      where: condition,
-      raw: true
-    })
-      .then(commodities => {
-        return cb(null, commodities)
+  getCommodities: async (req, cb) => {
+    try {
+      const condition = {}
+      if (req.query.category) {
+        condition.categoryId = +req.query.category
+      } else if (req.query.name) {
+        condition.name = { [Op.startsWith]: req.query.name }
+      } else if (req.query.seller) {
+        const sellers = await Seller.findAll({
+          where: {
+            name: {
+              [Op.startsWith]: req.query.seller
+            }
+          },
+          raw: true
+        })
+        const sellerId = sellers.map(seller => seller.id)
+        condition.sellerId = { [Op.or]: sellerId }
+      }
+      const commodities = await Commodity.findAll({
+        where: condition,
+        raw: true
       })
-      .catch(err => cb(err))
+      console.log(condition)
+      return cb(null, commodities)
+    } catch (err) {
+      return cb(err)
+    }
   }
 }
 
