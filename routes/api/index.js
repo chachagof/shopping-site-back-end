@@ -14,5 +14,7 @@ router.post('/seller/signup', sellerController.sellerSignup)
 // signin
 router.post('/buyer/signin', buyerController.buyerSignin)
 router.post('/seller/signin', sellerController.sellerSignin)
+// commodity
+router.post('/commodity/:sellerId', authenticated, authenticatedSeller, commodityController.createCommodity)
 
 module.exports = router
