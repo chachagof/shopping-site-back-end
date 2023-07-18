@@ -53,6 +53,8 @@ const commodityService = {
     const condition = {}
     if (req.query.category) {
       condition.categoryId = +req.query.category
+    } else if (req.query.name) {
+      condition.name = { [Op.startsWith]: req.query.name }
     }
     Commodity.findAll({
       where: condition,
