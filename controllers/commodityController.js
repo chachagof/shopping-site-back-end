@@ -8,6 +8,10 @@ const commodityController = {
   // edit
   editCommodity: (req, res, next) => {
     commodityService.editCommodity(req, (err, data) => { err ? next(err) : res.json(data) })
+  },
+  // delete
+  deleteCommodity: (req, res, next) => {
+    commodityService.deleteCommodity(req, (err, data) => { err ? next(err) : res.json(data) })
   }
 }
 
