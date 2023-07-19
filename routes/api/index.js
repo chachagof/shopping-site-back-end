@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router()
-const passport = require('../../config/passport')
 
 const buyerController = require('../../controllers/buyerController')
 const sellerController = require('../../controllers/sellerController')
@@ -33,5 +32,7 @@ router.get('/seller/:sellerId', sellerController.getSeller)
 // cart
 // create
 router.post('/cart/:commodityId', authenticated, authenticatedBuyer, cartController.addToCart)
+// read
+router.get('/cart', authenticated, authenticatedBuyer, cartController.getCart)
 
 module.exports = router

@@ -16,12 +16,12 @@ passport.use(new JWTStrategy(jwtOptions, (jwtPayload, cb) => {
     Buyer.findByPk(jwtPayload.id, {
       include: [Cart]
     })
-      .then(user => cb(null, user))
+      .then(user => cb(null, user.toJSON()))
       .catch(err => cb(err))
   }
   if (jwtPayload.role === 'seller') {
     Seller.findByPk(jwtPayload.id)
-      .then(user => cb(null, user))
+      .then(user => cb(null, user.toJSON()))
       .catch(err => cb(err))
   }
 }))
