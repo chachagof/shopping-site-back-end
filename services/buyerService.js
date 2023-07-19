@@ -8,7 +8,10 @@ const buyerService = {
   buyerSignin: (req, cb) => {
     const { account, password } = req.body
     if (!account || !password) throw new Error('請輸入帳號密碼')
-    Buyer.findOne({ where: { account } })
+    Buyer.findOne({
+      where: { account },
+      include: [Cart]
+    })
       .then(buyer => {
         if (!buyer) throw new Error('帳號或密碼輸入錯誤！')
         return bcrypt.compare(password, buyer.password)

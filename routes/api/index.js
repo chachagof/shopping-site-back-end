@@ -5,6 +5,7 @@ const passport = require('../../config/passport')
 const buyerController = require('../../controllers/buyerController')
 const sellerController = require('../../controllers/sellerController')
 const commodityController = require('../../controllers/commodityController')
+const cartController = require('../../controllers/cartController')
 
 const { authenticated, authenticatedBuyer, authenticatedSeller } = require('../../middleware/api-auth')
 
@@ -28,5 +29,9 @@ router.get('/commodities/:commodityId', commodityController.getCommodity)
 
 // shop
 router.get('/seller/:sellerId', sellerController.getSeller)
+
+// cart
+// create
+router.post('/cart/:commodityId', authenticated, authenticatedBuyer, cartController.addToCart)
 
 module.exports = router
