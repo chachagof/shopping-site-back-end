@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 
-const { Buyer } = require('../models')
+const { Buyer, Cart } = require('../models')
 
 const buyerService = {
   // signin
@@ -40,13 +40,12 @@ const buyerService = {
         if (buyer) throw new Error('此帳號已存在')
         return bcrypt.hash(password, 10)
       })
-      .then(hash => {
-        Buyer.create({
-          name,
-          account,
-          password: hash
-        })
-      })
+      .then(hash => Buyer.create({
+        name,
+        account,
+        password: hash
+      }))
+      .then(buyer => Cart.create({ buyerId: buyer.id }))
       .then(() => {
         cb(null, {
           status: 200,
