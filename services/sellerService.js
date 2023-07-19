@@ -1,9 +1,10 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
-const { Seller } = require('../models')
+const { Seller, Commodity } = require('../models')
 
 const sellerService = {
+  // signin
   sellerSignin: (req, cb) => {
     const { account, password } = req.body
     if (!account || !password) throw new Error('請輸入帳號密碼')
@@ -27,6 +28,7 @@ const sellerService = {
       })
       .catch(err => cb(err))
   },
+  // signup
   sellerSignup: (req, cb) => {
     const { name, account, password, passwordCheck } = req.body
     // check all items
@@ -51,6 +53,16 @@ const sellerService = {
           message: '賣家註冊成功'
         })
       })
+      .catch(err => cb(err))
+  },
+  // shop
+  getSeller: (req, cb) => {
+    const sellerId = req.params.sellerId
+    Seller.findByPk(sellerId, {
+      include: [Commodity],
+      nest: true
+    })
+      .then(seller => cb(null, seller))
       .catch(err => cb(err))
   }
 }

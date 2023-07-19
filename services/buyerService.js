@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs')
 const { Buyer } = require('../models')
 
 const buyerService = {
+  // signin
   buyerSignin: (req, cb) => {
     const { account, password } = req.body
     if (!account || !password) throw new Error('請輸入帳號密碼')
@@ -27,6 +28,7 @@ const buyerService = {
       })
       .catch(err => cb(err))
   },
+  // signup
   buyerSignup: (req, cb) => {
     const { name, account, password, passwordCheck } = req.body
     // check all items

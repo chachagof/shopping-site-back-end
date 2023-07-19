@@ -26,4 +26,7 @@ router.delete('/commodity/:commodityId', authenticated, authenticatedSeller, com
 router.get('/commodities', commodityController.getCommodities)
 router.get('/commodities/:commodityId', commodityController.getCommodity)
 
+// shop
+router.get('/seller/:sellerId', sellerController.getSeller)
+
 module.exports = router

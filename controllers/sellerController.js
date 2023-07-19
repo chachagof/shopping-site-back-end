@@ -6,6 +6,9 @@ const sellerController = {
   },
   sellerSignup: (req, res, next) => {
     sellerService.sellerSignup(req, (err, data) => err ? next(err) : res.json(data))
+  },
+  getSeller: (req, res, next) => {
+    sellerService.getSeller(req, (err, data) => err ? next(err) : res.json(data))
   }
 }
 
