@@ -6,7 +6,7 @@ const buyer = Array.from({ length: 5 }).map((data, i) => ({
   account: `buyer00${i + 1}`,
   password: bcrypt.hashSync('titaner', bcrypt.genSaltSync(10), null),
   role: 'buyer',
-  avatar: 'https://i.imgur.com/ehh37fR.jpg',
+  avatar: 'https://images.dog.ceo/breeds/saluki/n02091831_2094.jpg',
   created_at: new Date(),
   updated_at: new Date()
 }))
