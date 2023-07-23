@@ -1,4 +1,4 @@
-const { CartCommodity } = require('../models')
+const { CartCommodity, Commodity } = require('../models')
 
 const cartService = {
   addToCart: (req, cb) => {
@@ -27,7 +27,8 @@ const cartService = {
   getCart: (req, cb) => {
     const cartId = req.user.Cart.id
     CartCommodity.findAll({
-      where: { cartId }
+      where: { cartId },
+      include: [Commodity]
     })
       .then(commodities => cb(null, { status: 200, data: commodities }))
       .catch(err => cb(err))
