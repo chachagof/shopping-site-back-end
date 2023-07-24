@@ -9,6 +9,9 @@ const cartController = {
   },
   editCart: (req, res, next) => {
     cartService.editCart(req, (err, data) => err ? next(err) : res.json(data))
+  },
+  deleteCart: (req, res, next) => {
+    cartService.deleteCart(req, (err, data) => err ? next(err) : res.json(data))
   }
 }
 

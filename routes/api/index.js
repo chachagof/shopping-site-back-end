@@ -36,5 +36,7 @@ router.post('/cart/:commodityId', authenticated, authenticatedBuyer, cartControl
 router.get('/cart', authenticated, authenticatedBuyer, cartController.getCart)
 // edit
 router.put('/cart/:commodityId', authenticated, authenticatedBuyer, cartController.editCart)
+// remove
+router.delete('/cart/:commodityId', authenticated, authenticatedBuyer, cartController.deleteCart)
 
 module.exports = router
