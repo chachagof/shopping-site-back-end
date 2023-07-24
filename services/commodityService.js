@@ -1,4 +1,4 @@
-const { Commodity, Seller } = require('../models')
+const { Commodity, Seller, Category } = require('../models')
 const { Op } = require('sequelize')
 
 const commodityService = {
@@ -54,7 +54,15 @@ const commodityService = {
       const condition = {}
       // category
       if (req.query.category) {
-        condition.categoryId = +req.query.category
+        const categories = await Category.findAll({
+          where: {
+            name: {
+              [Op.startsWith]: req.query.category
+            }
+          }
+        })
+        const categoryId = categories.map(category => category.id)
+        condition.categoryId = { [Op.or]: categoryId }
       }
       // commodity name
       if (req.query.name) {
