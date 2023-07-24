@@ -34,5 +34,7 @@ router.get('/seller/:sellerId', sellerController.getSeller)
 router.post('/cart/:commodityId', authenticated, authenticatedBuyer, cartController.addToCart)
 // read
 router.get('/cart', authenticated, authenticatedBuyer, cartController.getCart)
+// edit
+router.put('/cart/:commodityId', authenticated, authenticatedBuyer, cartController.editCart)
 
 module.exports = router

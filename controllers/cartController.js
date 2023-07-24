@@ -6,6 +6,9 @@ const cartController = {
   },
   getCart: (req, res, next) => {
     cartService.getCart(req, (err, data) => err ? next(err) : res.json(data))
+  },
+  editCart: (req, res, next) => {
+    cartService.editCart(req, (err, data) => err ? next(err) : res.json(data))
   }
 }
 

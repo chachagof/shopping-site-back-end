@@ -4,7 +4,6 @@ const cartService = {
   addToCart: (req, cb) => {
     const commodityId = req.params.commodityId
     const cartId = req.user.Cart.id
-    const { amount } = req.body
     CartCommodity.findOne({
       where: {
         commodityId,
@@ -14,7 +13,7 @@ const cartService = {
       .then(cartcommodity => {
         if (!cartcommodity) {
           return CartCommodity.create({
-            amount,
+            amount: 1,
             commodityId,
             cartId
           })
@@ -31,6 +30,19 @@ const cartService = {
       include: [Commodity]
     })
       .then(commodities => cb(null, { status: 200, data: commodities }))
+      .catch(err => cb(err))
+  },
+  editCart: (req, cb) => {
+    const commodityId = req.params.commodityId
+    const cartId = req.user.Cart.id
+    CartCommodity.findOne({
+      where: {
+        commodityId,
+        cartId
+      }
+    })
+      .then(cartcommodity => cartcommodity.decrement('amount', { by: 1 }))
+      .then(() => cb(null, { status: 200, message: '成功從購物車減少' }))
       .catch(err => cb(err))
   }
 }
