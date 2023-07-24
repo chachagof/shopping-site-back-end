@@ -12,7 +12,7 @@ const passport = require('./config/passport')
 const { apis } = require('./routes')
 
 app.use(cors())
-app.use(express.urlencoded({ extended: true })) // body-parser
+app.use(express.json()) // body-parser
 app.use(methodOverride('_method'))
 app.use(passport.initialize())// passport
 app.use('/api', apis)
