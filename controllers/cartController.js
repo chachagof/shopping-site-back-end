@@ -12,6 +12,9 @@ const cartController = {
   },
   deleteCart: (req, res, next) => {
     cartService.deleteCart(req, (err, data) => err ? next(err) : res.json(data))
+  },
+  checkCart: (req, res, next) => {
+    cartService.checkCart(req, (err, data) => err ? next(err) : res.json(data))
   }
 }
 

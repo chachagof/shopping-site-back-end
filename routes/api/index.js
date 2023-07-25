@@ -30,10 +30,14 @@ router.get('/commodities/:commodityId', commodityController.getCommodity)
 router.get('/seller/:sellerId', sellerController.getSeller)
 
 // cart
-// create
-router.post('/cart/:commodityId', authenticated, authenticatedBuyer, cartController.addToCart)
 // read
 router.get('/cart', authenticated, authenticatedBuyer, cartController.getCart)
+// check
+router.put('/cart', authenticated, authenticatedBuyer,
+  cartController.checkCart)
+// create
+router.post('/cart/:commodityId', authenticated, authenticatedBuyer, cartController.addToCart)
+
 // edit
 router.put('/cart/:commodityId', authenticated, authenticatedBuyer, cartController.editCart)
 // remove

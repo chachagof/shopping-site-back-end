@@ -60,6 +60,22 @@ const cartService = {
       })
       .then(() => cb(null, { status: 200, message: '商品刪除成功' }))
       .catch(err => cb(err))
+  },
+  checkCart: async (req, cb) => {
+    try {
+      const { updateData } = req.body
+      const cartId = req.user.Cart.id
+      const res = await updateData.forEach(({ id, inventory }) => {
+        Commodity.update({ inventory }, { where: { id } })
+      })
+      await CartCommodity.destroy({
+        where: { cartId }
+      })
+      console.log(res)
+      return cb(null, { status: 200, message: '完成結帳' })
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
 
