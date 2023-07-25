@@ -5,6 +5,7 @@ const buyerController = require('../../controllers/buyerController')
 const sellerController = require('../../controllers/sellerController')
 const commodityController = require('../../controllers/commodityController')
 const cartController = require('../../controllers/cartController')
+const categoryController = require('../../controllers/categoryController')
 
 const { authenticated, authenticatedBuyer, authenticatedSeller } = require('../../middleware/api-auth')
 
@@ -28,6 +29,9 @@ router.get('/commodities/:commodityId', commodityController.getCommodity)
 
 // shop
 router.get('/seller/:sellerId', sellerController.getSeller)
+
+// category
+router.get('/category', categoryController.getCategory)
 
 // cart
 // read
