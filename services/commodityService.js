@@ -1,26 +1,27 @@
-const { Commodity, Seller } = require('../models')
+const { Commodity, Seller, Category } = require('../models')
 const { Op } = require('sequelize')
 
 const commodityService = {
   // create
   createCommodity: (req, cb) => {
-    const { name, price, inventory, description } = req.body
+    const { name, price, avatar, inventory, description, categoryId } = req.body
     const sellerId = req.user.id
     if (!name || !price || !inventory) throw new Error('所有欄位都是必填的')
     Commodity.create({
       name,
       price,
+      avatar,
       inventory,
       description,
       sellerId,
-      categoryId: 1// example
+      categoryId
     })
       .then(() => cb(null, { status: 200, message: '商品建立成功' }))
       .catch(err => cb(err))
   },
   // edit
   editCommodity: (req, cb) => {
-    const { name, price, inventory, description } = req.body
+    const { name, price, inventory, description, avatar } = req.body
     const { commodityId } = req.params
     if (!name || !price || !inventory) throw new Error('所有欄位都是必填的')
     Commodity.findByPk(commodityId)
@@ -30,8 +31,8 @@ const commodityService = {
           name,
           price,
           inventory,
-          description,
-          categoryId: 1// example
+          avatar,
+          description
         })
       })
       .then(() => cb(null, { status: 200, message: '商品修改成功' }))
@@ -54,7 +55,15 @@ const commodityService = {
       const condition = {}
       // category
       if (req.query.category) {
-        condition.categoryId = +req.query.category
+        const categories = await Category.findAll({
+          where: {
+            name: {
+              [Op.startsWith]: req.query.category
+            }
+          }
+        })
+        const categoryId = categories.map(category => category.id)
+        condition.categoryId = { [Op.or]: categoryId }
       }
       // commodity name
       if (req.query.name) {

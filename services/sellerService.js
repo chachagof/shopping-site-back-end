@@ -58,6 +58,7 @@ const sellerService = {
   // shop
   getSeller: (req, cb) => {
     const sellerId = req.params.sellerId
+    console.log(sellerId)
     Seller.findByPk(sellerId, {
       include: [Commodity],
       nest: true

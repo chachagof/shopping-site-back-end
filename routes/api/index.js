@@ -5,6 +5,7 @@ const buyerController = require('../../controllers/buyerController')
 const sellerController = require('../../controllers/sellerController')
 const commodityController = require('../../controllers/commodityController')
 const cartController = require('../../controllers/cartController')
+const categoryController = require('../../controllers/categoryController')
 
 const { authenticated, authenticatedBuyer, authenticatedSeller } = require('../../middleware/api-auth')
 
@@ -17,7 +18,7 @@ router.post('/seller/signin', sellerController.sellerSignin)
 
 // commodity
 // create
-router.post('/commodity/:sellerId', authenticated, authenticatedSeller, commodityController.createCommodity)
+router.post('/commodity/', authenticated, authenticatedSeller, commodityController.createCommodity)
 // edit
 router.put('/commodity/:commodityId', authenticated, authenticatedSeller, commodityController.editCommodity)
 // delete
@@ -29,10 +30,21 @@ router.get('/commodities/:commodityId', commodityController.getCommodity)
 // shop
 router.get('/seller/:sellerId', sellerController.getSeller)
 
+// category
+router.get('/category', categoryController.getCategory)
+
 // cart
-// create
-router.post('/cart/:commodityId', authenticated, authenticatedBuyer, cartController.addToCart)
 // read
 router.get('/cart', authenticated, authenticatedBuyer, cartController.getCart)
+// check
+router.put('/cart', authenticated, authenticatedBuyer,
+  cartController.checkCart)
+// create
+router.post('/cart/:commodityId', authenticated, authenticatedBuyer, cartController.addToCart)
+
+// edit
+router.put('/cart/:commodityId', authenticated, authenticatedBuyer, cartController.editCart)
+// remove
+router.delete('/cart/:commodityId', authenticated, authenticatedBuyer, cartController.deleteCart)
 
 module.exports = router
