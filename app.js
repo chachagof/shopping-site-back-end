@@ -7,11 +7,11 @@ const methodOverride = require('method-override')
 const cors = require('cors')
 
 const app = express()
+app.use(cors())
 const PORT = process.env.PORT || 3000
 const passport = require('./config/passport')
 const { apis } = require('./routes')
 
-app.use(cors())
 app.use(express.json()) // body-parser
 app.use(methodOverride('_method'))
 app.use(passport.initialize())// passport
