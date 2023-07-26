@@ -18,7 +18,7 @@ router.post('/seller/signin', sellerController.sellerSignin)
 
 // commodity
 // create
-router.post('/commodity/:sellerId', authenticated, authenticatedSeller, commodityController.createCommodity)
+router.post('/commodity/', authenticated, authenticatedSeller, commodityController.createCommodity)
 // edit
 router.put('/commodity/:commodityId', authenticated, authenticatedSeller, commodityController.editCommodity)
 // delete
