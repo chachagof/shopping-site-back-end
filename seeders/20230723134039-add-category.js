@@ -11,10 +11,10 @@ const categories = ['Electronics', 'Clothing', 'Beauty', 'Furniture', 'Food', 'S
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('Categories', categories, {})
+    await queryInterface.bulkInsert('categories', categories, {})
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('Categories', null, {})
+    await queryInterface.bulkDelete('categories', null, {})
   }
 }
