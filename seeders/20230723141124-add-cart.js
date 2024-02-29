@@ -13,10 +13,10 @@ module.exports = {
         updated_at: data.updatedAt
       }
     })
-    await queryInterface.bulkInsert('carts', cart, {})
+    await queryInterface.bulkInsert('Carts', cart, {})
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('carts', null, {})
+    await queryInterface.bulkDelete('Carts', null, {})
   }
 }
